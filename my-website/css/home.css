@@ -1,20 +1,36 @@
+/* --- Optimized CSS Variables & Base Styles --- */
+:root {
+  --primary-red: #e50914; /* Netflix Red */
+  --bg-darkest: #141414;
+  --bg-darker: #181818;
+  --bg-dark: #222;
+  --text-light: #fff;
+  --text-mute: #ccc;
+}
+
 body {
-  background: #141414;
-  color: #fff;
+  background: var(--bg-darkest);
+  color: var(--text-light);
   margin: 0;
   padding: 0;
   min-height: 100vh;
   font-family: "Segoe UI", "Poppins", Arial, sans-serif;
 }
 
+/* FIX 1: Lock body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+  height: 100vh;
+}
+
 .navbar {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background: #181818;
+  background: var(--bg-darker);
   padding: 0 4vw;
   height: 68px;
-  border-bottom: 3px solid #e50914;
+  border-bottom: 3px solid var(--primary-red);
   position: sticky;
   top: 0;
   width: 100vw;
@@ -29,7 +45,7 @@ body {
   gap: 32px;
 }
 .nav-link {
-  color: #ccc;
+  color: var(--text-mute);
   font-weight: 600;
   text-decoration: none;
   font-size: 1.11rem;
@@ -37,24 +53,20 @@ body {
   padding: 0 4px;
 }
 .nav-link.active,
-.nav-link:hover,
-.nav-link:focus {
-  color: #e50914;
+.nav-link:hover {
+  color: var(--primary-red);
 }
 .search-bar {
   margin-left: auto;
   padding: 8px 18px;
   border-radius: 20px;
   border: 2px solid #444;
-  background: #222;
-  color: #fff;
+  background: var(--bg-dark);
+  color: var(--text-light);
   outline: none;
-  transition: border-color 0.2s;
-}
-.search-bar:focus {
-  border-color: #e50914;
 }
 
+/* --- Hero Section --- */
 .hero-banner,
 #banner {
   min-height: 46vh;
@@ -85,7 +97,7 @@ body {
 .hero-text h1 {
   font-size: 2.55rem;
   font-weight: 900;
-  color: #fff;
+  color: var(--text-light);
   letter-spacing: 0.3px;
   margin-bottom: 10px;
   text-shadow: 0 5px 20px #000a;
@@ -98,6 +110,7 @@ body {
   font-weight: 400;
 }
 
+/* --- Content Rows --- */
 .row {
   margin: 32px 0 36px 0;
 }
@@ -122,16 +135,15 @@ body {
   width: 176px;
   height: 270px;
   object-fit: cover;
-  background: #232323;
+  background: var(--bg-dark);
   border-radius: 7px;
   box-shadow: 0 2px 20px 0 #0006;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
-.list img:hover,
-.list img:focus {
+.list img:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 10px #e50914;
+  box-shadow: 0 0 10px var(--primary-red);
   z-index: 2;
 }
 
@@ -142,28 +154,12 @@ body {
   left: 0;
   width: 50px;
   height: 100%;
-  background: linear-gradient(to right, rgba(20, 20, 20, 1), transparent);
+  background: linear-gradient(to right, var(--bg-darkest), transparent); 
   pointer-events: none;
   z-index: 5;
 }
 
-/* Loading Spinner */
-.loading {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  z-index: 1000;
-}
-.hidden {
-  display: none;
-}
-
-/* Modal and search styles */
+/* --- Modal and Search Styles --- */
 .modal,
 .search-modal {
   position: fixed;
@@ -175,8 +171,7 @@ body {
   height: 100vh;
   background: rgba(20, 20, 20, 0.97);
   opacity: 0;
-  pointer-events: none;
-  display: flex;
+  display: none; 
   align-items: center;
   justify-content: center;
   z-index: 1000;
@@ -185,8 +180,8 @@ body {
 
 .modal.show,
 .search-modal.show {
+  display: flex; 
   opacity: 1;
-  pointer-events: auto;
 }
 
 .modal-content {
@@ -196,8 +191,34 @@ body {
   width: 92vw;
   max-width: 600px;
   position: relative;
-  color: #fff;
+  color: var(--text-light);
   box-shadow: 0 12px 42px 0 #000b;
+  
+  /* FIX 2: Enable scrolling inside the modal to reach the bottom content */
+  max-height: 90vh; 
+  overflow-y: auto; 
+}
+
+.modal-body {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.modal-body img {
+  width: 150px; /* Fixed width for desktop/tablet view */
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.modal-text {
+  flex-grow: 1;
+}
+
+#modal-description {
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
 .close {
@@ -205,18 +226,16 @@ body {
   top: 16px;
   right: 24px;
   font-size: 2.3rem;
-  color: #e50914;
+  color: var(--primary-red);
   background: none;
   border: none;
   cursor: pointer;
   line-height: 1;
   z-index: 20;
-  transition: color 0.2s;
 }
 
-.close:hover,
-.close:focus {
-  color: #fff;
+.close:hover {
+  color: var(--text-light);
 }
 
 #search-input,
@@ -225,18 +244,17 @@ body {
   width: 90vw;
   padding: 16px;
   border-radius: 8px;
-  border: 2px solid #fff;
-  background: #181818;
-  color: #fff;
+  border: 2px solid var(--text-light);
+  background: var(--bg-darker);
+  color: var(--text-light);
   font-size: 1.13rem;
   margin: 44px auto 10px auto;
   display: block;
   outline: none;
-  transition: border-color 0.2s;
 }
 
 #search-input:focus {
-  border-color: #e50914;
+  border-color: var(--primary-red);
 }
 
 .search-modal .results {
@@ -249,57 +267,10 @@ body {
   justify-content: center;
 }
 
-.search-modal .results img {
-  width: 120px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 7px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-.search-modal .results img:hover {
-  transform: scale(1.05);
-}
-
-/* Modal internals */
-.modal-body {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-#modal-image {
-  width: 200px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-.modal-text {
-  flex: 1;
-}
-#modal-rating {
-  margin: 10px 0;
-  color: #ffd700;
-  font-size: 1.2rem;
-}
-.server-selector {
-  margin: 20px 0;
-}
-#server {
-  padding: 8px;
-  border-radius: 4px;
-  background: #181818;
-  color: #fff;
-  border: 1px solid #444;
-  margin-left: 10px;
-}
-#modal-video {
-  border-radius: 8px;
-  margin-top: 20px;
-}
-
+/* --- Footer --- */
 .footer {
-  background: #181818;
-  color: #ccc;
+  background: var(--bg-darker);
+  color: var(--text-mute);
   padding: 18px 2vw;
   text-align: center;
   margin-top: 56px;
@@ -307,18 +278,17 @@ body {
 }
 
 .footer-links a {
-  color: #e50914;
+  color: var(--primary-red);
   margin: 0 11px;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s;
 }
 
-.footer-links a:hover,
-.footer-links a:focus {
-  color: #fff;
+.footer-links a:hover {
+  color: var(--text-light);
 }
 
+/* --- Media Queries --- */
 @media (max-width: 950px) {
   .hero-text {
     max-width: 90vw;
@@ -326,14 +296,32 @@ body {
   }
   .list img {
     width: 122px;
+    height: 186px;
   }
+}
+
+@media (max-width: 550px) {
+  .modal-content {
+    padding: 20px;
+  }
+  
   .modal-body {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; /* Stack image and text vertically */
+    gap: 15px;
   }
-  #modal-image {
-    width: 150px;
-    height: 225px;
+
+  .modal-body img {
+    width: 100%; /* Image takes full width at the top */
+    max-height: 300px; /* Prevent very large images */
+    object-fit: contain;
+  }
+  
+  #modal-title {
+    font-size: 1.5rem;
+  }
+  
+  #modal-video {
+    height: 250px; /* Ensure video is smaller on mobile */
   }
 }
 
@@ -345,6 +333,16 @@ body {
   .hero-text {
     padding: 24px 3vw;
   }
+  #banner-title {
+    font-size: 1.8rem;
+  }
+  #banner-overview {
+    font-size: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }
   .row h2 {
     font-size: 1.07rem;
   }
@@ -352,9 +350,5 @@ body {
   .search-modal input {
     width: 92vw;
     font-size: 0.98rem;
-  }
-  .modal-content {
-    width: 95vw;
-    padding: 20px;
   }
 }
