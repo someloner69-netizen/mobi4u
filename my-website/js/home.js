@@ -1,7 +1,7 @@
 // Secure API key: In production, use environment variables or a backend proxy to avoid exposure
  // Replace with your TMDB API key (get from https://www.themoviedb.org/settings/api)
 // Secure API key: In production, use environment variables or a backend proxy to avoid exposure
-const API_KEY = 'a1e72fd93ed59f56e6332813b9f8dcae'; // Replace with your TMDB API key (get from https://www.themoviedb.org/settings/api)
+const API_KEY = '225a70afe36a3ba053130f7194015d1d'; // Replace with your TMDB API key (get from https://www.themoviedb.org/settings/api)
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 let currentItem = null;
@@ -237,4 +237,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Search event
   document.getElementById('search-input').addEventListener('input', debouncedSearch);
 });
+
 
